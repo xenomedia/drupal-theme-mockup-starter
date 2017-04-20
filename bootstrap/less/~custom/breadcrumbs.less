@@ -1,0 +1,27 @@
+ol.breadcrumb {
+
+  margin: 26px 0;
+
+  li{
+
+    font-size: 12px;
+    margin: 0;
+    font-weight: 400;
+
+    &::before {
+      content:'';
+      margin: 0;
+      padding: 0;
+    }
+
+    &:not(:last-child){
+
+      margin: 0 13px 0 0;
+
+      &::after {
+        content: '\00bb';
+        margin-left: 1em;
+      }
+    }
+  }
+}

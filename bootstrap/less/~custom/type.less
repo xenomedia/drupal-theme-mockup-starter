@@ -1,0 +1,54 @@
+.text-muted {
+  color: @gray-light;
+
+  a {
+    color: @gray-light;
+  }
+}
+
+.inline-list {
+  list-style: none;
+  padding: 0;
+
+  > li {
+    display: inline-block;
+  }
+
+  > li:not(:first-of-type) {
+    margin-left: 20px;
+  }
+}
+
+p {
+
+  &.lead {
+
+    font-size: @font-size-large;
+    font-weight: 400;
+		color: @gray-light;
+
+    &:not(:last-child) {
+	    margin-bottom: 26px;
+		}
+  }
+}
+
+h5,
+.h5 {
+	font-weight: 500;
+}
+
+label {
+	font-size: @font-size-small;
+	font-weight: 400;
+	margin: 0;
+}
+
+.visually-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  overflow-wrap: normal;
+  position: absolute !important;
+  width: 1px;
+}
