@@ -121,7 +121,7 @@ module.exports = function (grunt) {
           'js/affix.js',
           'js/~custom.js'
         ],
-        dest: '../docroot/themes/custom/hestia/js/hestia.js'
+        dest: '../js/hestia.js'
       }
     },
 
@@ -135,7 +135,7 @@ module.exports = function (grunt) {
       },
       core: {
         src: '<%= concat.bootstrap.dest %>',
-        dest: '../docroot/themes/custom/hestia/js/hestia.min.js'
+        dest: '../js/hestia.min.js'
       },
       customize: {
         src: configBridge.paths.customizerJs,
@@ -161,10 +161,10 @@ module.exports = function (grunt) {
           sourceMap: true,
           outputSourceFiles: true,
           sourceMapURL: '<%= pkg.name %>.css.map',
-          sourceMapFilename: '../docroot/themes/custom/hestia/css/hestia.css.map'
+          sourceMapFilename: '../css/hestia.css.map'
         },
         src: 'less/bootstrap.less',
-        dest: '../docroot/themes/custom/hestia/css/hestia.css'
+        dest: '../css/hestia.css'
       },
       compileTheme: {
         options: {
@@ -172,10 +172,10 @@ module.exports = function (grunt) {
           sourceMap: true,
           outputSourceFiles: true,
           sourceMapURL: '<%= pkg.name %>-theme.css.map',
-          sourceMapFilename: '../docroot/themes/custom/hestia/css/hestia-theme.css.map'
+          sourceMapFilename: '../css/hestia-theme.css.map'
         },
         src: 'less/theme.less',
-        dest: '../docroot/themes/custom/hestia/css/hestia-theme.css'
+        dest: '../css/hestia-theme.css'
       }
     },
 
@@ -187,13 +187,13 @@ module.exports = function (grunt) {
         options: {
           map: true
         },
-        src: '../docroot/themes/custom/hestia/css/hestia.css'
+        src: '../css/hestia.css'
       },
       theme: {
         options: {
           map: true
         },
-        src: '../docroot/themes/custom/hestia/css/hestia-theme.css'
+        src: '../css/hestia-theme.css'
       },
       docs: {
         src: ['docs/assets/css/src/docs.css']
@@ -211,8 +211,8 @@ module.exports = function (grunt) {
         csslintrc: 'less/.csslintrc'
       },
       dist: [
-        '../docroot/themes/custom/hestia/css/hestia.css',
-        '../docroot/themes/custom/hestia/css/hestia-theme.css'
+        '../css/hestia.css',
+        '../css/hestia-theme.css'
       ],
       examples: [
         'docs/examples/**/*.css'
@@ -236,12 +236,12 @@ module.exports = function (grunt) {
         advanced: false
       },
       minifyCore: {
-        src: '../docroot/themes/custom/hestia/css/hestia.css',
-        dest: '../docroot/themes/custom/hestia/css/hestia.min.css'
+        src: '../css/hestia.css',
+        dest: '../css/hestia.min.css'
       },
       minifyTheme: {
-        src: '../docroot/themes/custom/hestia/css/hestia-theme.css',
-        dest: '../docroot/themes/custom/hestia/css/hestia-theme.min.css'
+        src: '../css/hestia-theme.css',
+        dest: '../css/hestia-theme.min.css'
       },
       docs: {
         src: [
@@ -259,9 +259,9 @@ module.exports = function (grunt) {
       },
       dist: {
         expand: true,
-        cwd: '../docroot/themes/custom/hestia/css/',
+        cwd: '../css/',
         src: ['*.css', '!*.min.css'],
-        dest: '../docroot/themes/custom/hestia/css/'
+        dest: '../css/'
       },
       examples: {
         expand: true,
@@ -279,7 +279,7 @@ module.exports = function (grunt) {
       fonts: {
         expand: true,
         src: 'fonts/*',
-        dest: '../docroot/themes/custom/hestia/'
+        dest: '../'
       },
       docs: {
         expand: true,
@@ -503,7 +503,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('commonjs', 'Generate CommonJS entrypoint module in dist dir.', function () {
     var srcFiles = grunt.config.get('concat.bootstrap.src');
-    var destFilepath = '../docroot/themes/custom/hestia/js/npm.js';
+    var destFilepath = '../js/npm.js';
     generateCommonJSModule(grunt, srcFiles, destFilepath);
   });
 
