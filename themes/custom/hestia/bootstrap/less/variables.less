@@ -2,16 +2,6 @@
 // Variables
 // --------------------------------------------------
 
-// Breakpoints
-@highdensity: ~"only screen and (-webkit-min-device-pixel-ratio: 1.5)",
-              ~"only screen and (min--moz-device-pixel-ratio: 1.5)",
-              ~"only screen and (-o-min-device-pixel-ratio: 3/2)",
-              ~"only screen and (min-device-pixel-ratio: 1.5)";
-@mobile:      ~"only screen and (max-width: 768px)";
-@tablet:      ~"only screen and (min-width: 769px) and (max-width: 991px)";
-@desktop:     ~"only screen and (min-width: 992px) and (max-width: 1199px)";
-@desktop-xl:  ~"only screen and (min-width: 1200px)";
-
 
 //== Colors
 //
@@ -30,21 +20,6 @@
 @brand-warning:         #f0ad4e;
 @brand-danger:          #d9534f;
 
-//interations custom colors
-@blue:                  #002b5c;
-@light-blue:            #49b5e1;
-@orange:                #FD8824;
-@black:                 #000;
-@white:                 #fff;
-@ligher-white:          #f0f0f0;
-@gray:                  #eee;
-@black-ligher:          #848383;
-@black-light:           #6e6e6e;
-@grey-arrow:            #c3c3c3;
-@blue-box:              #c6e2ea;
-@grey-lighter:          #9e9e9e;
-@yellow:                #ffd400;
-@yellow-hover:          darken(@yellow, 5%);
 
 //== Scaffolding
 //
@@ -62,11 +37,12 @@
 //** Link hover decoration.
 @link-hover-decoration: underline;
 
+
 //== Typography
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-@font-family-sans-serif:  'Lato', sans-serif;
+@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
 @font-family-serif:       Georgia, "Times New Roman", Times, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 @font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
@@ -90,7 +66,7 @@
 
 //** By default, this inherits from the `<body>`.
 @headings-font-family:    inherit;
-@headings-font-weight:    900;
+@headings-font-weight:    500;
 @headings-line-height:    1.1;
 @headings-color:          inherit;
 
@@ -135,7 +111,7 @@
 //** Global background color for active items (e.g., navs or dropdowns).
 @component-active-bg:       @brand-primary;
 
-//** Width of the `border` for generating carets that indicator dropdowns.
+//** Width of the `border` for generating carets that indicate dropdowns.
 @caret-width-base:          4px;
 //** Carets increase slightly in size for larger components.
 @caret-width-large:         5px;
@@ -166,7 +142,7 @@
 //
 //## For each of Bootstrap's buttons, define text, background and border color.
 
-@btn-font-weight:                400;
+@btn-font-weight:                normal;
 
 @btn-default-color:              #333;
 @btn-default-bg:                 #fff;
@@ -646,7 +622,7 @@
 
 @alert-padding:               15px;
 @alert-border-radius:         @border-radius-base;
-@alert-link-font-weight:      400;
+@alert-link-font-weight:      bold;
 
 @alert-success-bg:            @state-success-bg;
 @alert-success-text:          @state-success-text;
@@ -802,7 +778,7 @@
 //** Badge background color in active nav link
 @badge-active-bg:             #fff;
 
-@badge-font-weight:           400;
+@badge-font-weight:           bold;
 @badge-line-height:           1;
 @badge-border-radius:         10px;
 
@@ -844,7 +820,7 @@
 //
 //##
 
-@close-font-weight:           400;
+@close-font-weight:           bold;
 @close-color:                 #000;
 @close-text-shadow:           0 1px 0 #fff;
 

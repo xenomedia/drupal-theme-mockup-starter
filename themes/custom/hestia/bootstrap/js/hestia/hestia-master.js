@@ -7,13 +7,13 @@ Custom Javascript scripts
 /* Asynchronous Font Loader */
 /* Passes JSLint thanks to: */
 /* https://gist.github.com/nire0510/85e02739c578aa901739 */
-(function (window) {
+(function ($) {
   'use strict';
 
   // Global configuration for web-font:
   window.WebFontConfig = {
     google: {
-      families: [ 'Lato:400,100,100italic,400italic,900:latin' ]
+      families: [ 'Roboto:400,400i,700,700i:latin' ]
     },
     timeout: 2000
   };
@@ -38,6 +38,7 @@ Custom jQuery scripts
 ================================================
 */
 
-jQuery(document).ready(function () {
+jQuery(document).ready(function($) {
   'use strict';
+
 });

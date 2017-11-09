@@ -1,7 +1,7 @@
 /*!
  * Bootstrap's Gruntfile
  * http://getbootstrap.com
- * Copyright 2013-2015 Twitter, Inc.
+ * Copyright 2013-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
@@ -17,7 +17,6 @@ module.exports = function (grunt) {
 
   var fs = require('fs');
   var path = require('path');
-  var npmShrinkwrap = require('npm-shrinkwrap');
   var generateGlyphiconsData = require('./grunt/bs-glyphicons-data-generator.js');
   var BsLessdocParser = require('./grunt/bs-lessdoc-parser.js');
   var getLessVarsData = function () {
@@ -119,7 +118,7 @@ module.exports = function (grunt) {
           'js/scrollspy.js',
           'js/tab.js',
           'js/affix.js',
-          'js/~custom.js'
+          'js/hestia/hestia-master.js'
         ],
         dest: '../js/hestia.js'
       }
@@ -158,24 +157,9 @@ module.exports = function (grunt) {
       compileCore: {
         options: {
           strictMath: true,
-          sourceMap: true,
-          outputSourceFiles: true,
-          sourceMapURL: '<%= pkg.name %>.css.map',
-          sourceMapFilename: '../css/hestia.css.map'
         },
         src: 'less/bootstrap.less',
         dest: '../css/hestia.css'
-      },
-      compileTheme: {
-        options: {
-          strictMath: true,
-          sourceMap: true,
-          outputSourceFiles: true,
-          sourceMapURL: '<%= pkg.name %>-theme.css.map',
-          sourceMapFilename: '../css/hestia-theme.css.map'
-        },
-        src: 'less/theme.less',
-        dest: '../css/hestia-theme.css'
       }
     },
 
@@ -188,12 +172,6 @@ module.exports = function (grunt) {
           map: true
         },
         src: '../css/hestia.css'
-      },
-      theme: {
-        options: {
-          map: true
-        },
-        src: '../css/hestia-theme.css'
       },
       docs: {
         src: ['docs/assets/css/src/docs.css']
@@ -211,8 +189,7 @@ module.exports = function (grunt) {
         csslintrc: 'less/.csslintrc'
       },
       dist: [
-        '../css/hestia.css',
-        '../css/hestia-theme.css'
+        '../css/hestia.css'
       ],
       examples: [
         'docs/examples/**/*.css'
@@ -232,24 +209,11 @@ module.exports = function (grunt) {
         //    and then simplify the fix for https://github.com/twbs/bootstrap/issues/14837 accordingly
         compatibility: 'ie8',
         keepSpecialComments: '*',
-        sourceMap: true,
         advanced: false
       },
       minifyCore: {
         src: '../css/hestia.css',
         dest: '../css/hestia.min.css'
-      },
-      minifyTheme: {
-        src: '../css/hestia-theme.css',
-        dest: '../css/hestia-theme.min.css'
-      },
-      docs: {
-        src: [
-          'docs/assets/css/ie10-viewport-bug-workaround.css',
-          'docs/assets/css/src/pygments-manni.css',
-          'docs/assets/css/src/docs.css'
-        ],
-        dest: 'docs/assets/css/docs.min.css'
       }
     },
 
@@ -373,25 +337,6 @@ module.exports = function (grunt) {
       }
     },
 
-    sed: {
-      versionNumber: {
-        pattern: (function () {
-          var old = grunt.option('oldver');
-          return old ? RegExp.quote(old) : old;
-        })(),
-        replacement: grunt.option('newver'),
-        exclude: [
-          'dist/fonts',
-          'docs/assets',
-          'fonts',
-          'js/tests/vendor',
-          'node_modules',
-          'test-infra'
-        ],
-        recursive: true
-      }
-    },
-
     'saucelabs-qunit': {
       all: {
         options: {
@@ -477,19 +422,14 @@ module.exports = function (grunt) {
   grunt.registerTask('dist-js', ['concat', 'uglify:core', 'commonjs']);
 
   // CSS distribution task.
-  grunt.registerTask('less-compile', ['less:compileCore', 'less:compileTheme']);
-  grunt.registerTask('dist-css', ['less-compile', 'autoprefixer:core', 'autoprefixer:theme', 'csscomb:dist', 'cssmin:minifyCore', 'cssmin:minifyTheme']);
+  grunt.registerTask('less-compile', ['less:compileCore']);
+  grunt.registerTask('dist-css', ['less-compile', 'autoprefixer:core', 'csscomb:dist', 'cssmin:minifyCore']);
 
   // Full distribution task.
   grunt.registerTask('dist', ['clean:dist', 'dist-css', 'copy:fonts', 'dist-js']);
 
   // Default task.
   grunt.registerTask('default', ['clean:dist', 'copy:fonts', 'test']);
-
-  // Version numbering task.
-  // grunt change-version-number --oldver=A.B.C --newver=X.Y.Z
-  // This can be overzealous, so its changes should always be manually reviewed!
-  grunt.registerTask('change-version-number', 'sed');
 
   grunt.registerTask('build-glyphicons-data', function () { generateGlyphiconsData.call(this, grunt); });
 
@@ -515,20 +455,4 @@ module.exports = function (grunt) {
   grunt.registerTask('docs', ['docs-css', 'lint-docs-css', 'docs-js', 'lint-docs-js', 'clean:docs', 'copy:docs', 'build-glyphicons-data', 'build-customizer']);
 
   grunt.registerTask('prep-release', ['dist', 'docs', 'jekyll:github', 'htmlmin', 'compress']);
-
-  // Task for updating the cached npm packages used by the Travis build (which are controlled by test-infra/npm-shrinkwrap.json).
-  // This task should be run and the updated file should be committed whenever Bootstrap's dependencies change.
-  grunt.registerTask('update-shrinkwrap', ['exec:npmUpdate', '_update-shrinkwrap']);
-  grunt.registerTask('_update-shrinkwrap', function () {
-    var done = this.async();
-    npmShrinkwrap({ dev: true, dirname: __dirname }, function (err) {
-      if (err) {
-        grunt.fail.warn(err);
-      }
-      var dest = 'test-infra/npm-shrinkwrap.json';
-      fs.renameSync('npm-shrinkwrap.json', dest);
-      grunt.log.writeln('File ' + dest.cyan + ' updated.');
-      done();
-    });
-  });
 };
